@@ -47,20 +47,52 @@ class workshoptool_demo_delegate extends mod_workshop_delegate {
     public function view_page_start() {
         global $OUTPUT;
 
-        echo $OUTPUT->notification('This notification has been injected by a workshop subplugin',
+        echo $OUTPUT->notification('This notification has been injected by view_page_start()',
             'notifysuccess');
     }
 
     /**
-     * Execute javascript when the document is ready.
+     * Add a button into the UI via JS (because we can).
      */
     public function view_page_end() {
+
+        echo html_writer::div('', '', array('id' => 'workshoptool_demo_placeholder'));
         echo '
-            <script type="text/javascript">
+            <script type="text/javascript">//<![CDATA[
                 $(document).ready(function() {
-                    alert("This alert has been injected by a workshop subplugin");
+                    $("#workshoptool_demo_placeholder").append("<button>Look mom, I created a button via JS!</button>");
                 });
-            </script>';
+            //]]></script>';
+    }
+
+    /**
+     * Display a notification at the top of the submission page.
+     */
+    public function submission_page_start() {
+        global $OUTPUT;
+
+        echo $OUTPUT->notification('This notification has been injected by submission_page_start()');
+    }
+
+    /**
+     * Display a notification at the bottom of the workshop submission.php page.
+     */
+    public function submission_page_end() {
+        global $OUTPUT;
+
+        echo $OUTPUT->notification('This notification has been injected by submission_page_end()');
+    }
+
+    /**
+     * Add a dummy custom action to the assessments displayed at submission.php page
+     *
+     * @param stdClass $submission the assessed submission
+     * @param workshop_assessment $assessment as returned by {@link workshop::prepare_assessment()}
+     */
+    public function submission_prepare_assessment($submission, workshop_assessment $assessment) {
+        global $PAGE;
+
+        $assessment->add_action($PAGE->url, 'Custom action');
     }
 
     /**
@@ -87,6 +119,18 @@ class workshoptool_demo_delegate extends mod_workshop_delegate {
         if (empty($data['democheckbox'])) {
             $handler->errors['democheckbox'] = 'You must check this';
         }
+    }
+
+    /**
+     * Called at assessment.php right after the workshop title heading
+     *
+     * @param stdClass $assessment the displayed assessment's record
+     * @param stdClass $submission the displayed assessed submission's record
+     */
+    public function assessment_page_end($assessment, $submission) {
+        global $OUTPUT;
+
+        echo $OUTPUT->notification('This notification has been injected by assessment_page_init()');
     }
 
 }
