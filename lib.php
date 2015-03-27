@@ -48,5 +48,5 @@ function workshoptool_demo_extend_navigation(navigation_node $navref, stdclass $
  * @param navigation_node $workshopnode {@link navigation_node}
  */
 function workshoptool_demo_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $workshopnode) {
-    $workshopnode->add('Look mom, I just extended the settings!');
+    $workshopnode->get('toolbox')->add('Look mom, I just extended the settings!');
 }
