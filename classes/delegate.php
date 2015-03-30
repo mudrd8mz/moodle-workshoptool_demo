@@ -47,8 +47,11 @@ class workshoptool_demo_delegate extends mod_workshop_delegate {
     public function view_page_start() {
         global $OUTPUT;
 
-        echo $OUTPUT->notification('This notification has been injected by view_page_start()',
-            'notifysuccess');
+        if (has_capability('workshoptool/demo:example', $this->workshop->context)) {
+            echo $OUTPUT->notification('You have the capability workshoptool/demo:example here!', 'notifysuccess');
+        } else {
+            echo $OUTPUT->notification('You do not have the capability workshoptool/demo:example here', 'notifyproblem');
+        }
     }
 
     /**

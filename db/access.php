@@ -16,19 +16,25 @@
 
 /**
  * @package     workshoptool_demo
+ * @category    access
  * @copyright   2015 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'workshoptool_demo';
-$plugin->version   = 2015033000;
-$plugin->requires  = 2015031900;
-$plugin->cron      = 0;
-$plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.1';
+$capabilities = array(
 
-$plugin->dependencies = array(
-    'mod_workshop' => 2015032300,
+    // Example of a capability defined at the subplugin level.
+    'workshoptool/demo:example' => array(
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => array(
+            'guest' => CAP_ALLOW,
+            'student' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        )
+    ),
 );

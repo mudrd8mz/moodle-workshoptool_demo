@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['demo:example'] = 'Example capability';
 $string['pluginname'] = 'Demo';
