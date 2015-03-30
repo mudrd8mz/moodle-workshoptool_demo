@@ -29,13 +29,13 @@ defined('MOODLE_INTERNAL') || die();
 class backup_workshoptool_demo_subplugin extends backup_subplugin {
 
     /**
-     * Returns the subplugin information to attach to workshop element
+     * Returns the subplugin information to attach to the workshop element
      */
     protected function define_workshop_subplugin_structure() {
 
         $subplugin = $this->get_subplugin_element();
         $subplugin_wrapper = new backup_nested_element($this->get_recommended_name());
-        $subplugin_data = new backup_nested_element('data', array('id'), array('foo', 'bar'));
+        $subplugin_data = new backup_nested_element('workshoptool_demo_workshop_data', array('id'), array('foo', 'bar'));
 
         $subplugin->add_child($subplugin_wrapper);
         $subplugin_wrapper->add_child($subplugin_data);
@@ -43,6 +43,46 @@ class backup_workshoptool_demo_subplugin extends backup_subplugin {
         $subplugin_data->set_source_array(array(
             (object)array('id' => 42, 'foo' => 'Foo!', 'bar' => 'Bar!'),
             (object)array('id' => 43, 'foo' => 'AnotherFoo!', 'bar' => 'AnotherBar!'),
+        ));
+
+        return $subplugin;
+    }
+
+    /**
+     * Returns the subplugin information to attach to the submission element
+     */
+    protected function define_submission_subplugin_structure() {
+
+        $subplugin = $this->get_subplugin_element();
+        $subplugin_wrapper = new backup_nested_element($this->get_recommended_name());
+        $subplugin_data = new backup_nested_element('workshoptool_demo_submission_data', array('id'), array('foo'));
+
+        $subplugin->add_child($subplugin_wrapper);
+        $subplugin_wrapper->add_child($subplugin_data);
+
+        $subplugin_data->set_source_array(array(
+            (object)array('id' => 44, 'foo' => 'Foo!'),
+            (object)array('id' => 45, 'foo' => 'AnotherFoo!'),
+        ));
+
+        return $subplugin;
+    }
+
+    /**
+     * Returns the subplugin information to attach to the assessment element
+     */
+    protected function define_assessment_subplugin_structure() {
+
+        $subplugin = $this->get_subplugin_element();
+        $subplugin_wrapper = new backup_nested_element($this->get_recommended_name());
+        $subplugin_data = new backup_nested_element('workshoptool_demo_assessment_data', array('id'), array('bar'));
+
+        $subplugin->add_child($subplugin_wrapper);
+        $subplugin_wrapper->add_child($subplugin_data);
+
+        $subplugin_data->set_source_array(array(
+            (object)array('id' => 46, 'bar' => 'Barbars!'),
+            (object)array('id' => 47, 'bar' => 'Duck and cover!'),
         ));
 
         return $subplugin;

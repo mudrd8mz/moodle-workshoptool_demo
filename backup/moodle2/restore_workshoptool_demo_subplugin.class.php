@@ -34,20 +34,56 @@ class restore_workshoptool_demo_subplugin extends restore_subplugin {
      * Returns the paths to be handled by the subplugin at workshop level
      */
     protected function define_workshop_subplugin_structure() {
-
-        $paths = array();
-
-        $elename = $this->get_namefor('data');
-        $elepath = $this->get_pathfor('/data');
-        $paths[] = new restore_path_element($elename, $elepath);
-
-        return $paths;
+        return array(
+            new restore_path_element(
+                $this->get_namefor('workshop_data'),
+                $this->get_pathfor('/workshoptool_demo_workshop_data')
+            )
+        );
     }
 
     /**
-     * Process one data element
+     * Returns the paths to be handled by the subplugin at submission level
      */
-    public function process_workshoptool_demo_data($data) {
-        $this->step->log('workshoptool_demo: processing demo data id '.$data['id'], backup::LOG_DEBUG);
+    protected function define_submission_subplugin_structure() {
+        return array(
+            new restore_path_element(
+                $this->get_namefor('submission_data'),
+                $this->get_pathfor('/workshoptool_demo_submission_data')
+            )
+        );
+    }
+
+    /**
+     * Returns the paths to be handled by the subplugin at assessment level
+     */
+    protected function define_assessment_subplugin_structure() {
+        return array(
+            new restore_path_element(
+                $this->get_namefor('assessment_data'),
+                $this->get_pathfor('/workshoptool_demo_assessment_data')
+            )
+        );
+    }
+
+    /**
+     * Process workshop data element
+     */
+    public function process_workshoptool_demo_workshop_data($data) {
+        $this->step->log('workshoptool_demo: processing workshop level data id '.$data['id'], backup::LOG_DEBUG);
+    }
+
+    /**
+     * Process submission data element
+     */
+    public function process_workshoptool_demo_submission_data($data) {
+        $this->step->log('workshoptool_demo: processing submission level data id '.$data['id'], backup::LOG_DEBUG);
+    }
+
+    /**
+     * Process assessment data element
+     */
+    public function process_workshoptool_demo_assessment_data($data) {
+        $this->step->log('workshoptool_demo: processing assessment level data id '.$data['id'], backup::LOG_DEBUG);
     }
 }
